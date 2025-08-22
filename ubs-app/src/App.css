@@ -1,0 +1,79 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.main-app,
+body,
+html {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.great-input {
+  width: 100%;
+  height: 2rem;
+  border: .1rem solid #333;
+  border-radius: .15rem;
+}
+
+.section-result {
+  background-color: #fff;
+  margin: .5rem;
+  border-radius: .5rem;
+  padding: .75rem;
+
+  .item-res {
+    padding: .5rem;
+    margin: .75rem;
+  }
+
+  button {
+    background-color: #fcff5a;
+  }
+
+  .item-res:nth-child(odd) {
+    background-color: #e7e7e7;
+  }
+}
+
+form {
+  margin: auto;
+  padding: .75rem;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: .75rem;
+
+  button[type=button] {
+    background-color: #5b8ae7;
+    color: #fff;
+  }
+
+  button[type=submit] {
+    background-color: #4ac72a;
+    color: #fff;
+  }
+
+  small {
+    padding: .5rem;
+    text-align: justify;
+  }
+}
+
+button {
+  cursor: pointer;
+  margin: .75rem;
+  border: 0;
+  font-size: 12pt;
+  border-radius: .25rem;
+  padding: .75rem;
+}
+
+label {
+  align-self: flex-start;
+  margin: .75rem 0;
+}

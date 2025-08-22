@@ -1,0 +1,59 @@
+.articleTranscribe {
+    position: absolute;
+    background-color: #fff;
+    inset: 0;
+    height: 90dvh;
+    overflow-y: scroll;
+    border-radius: .25rem;
+    padding: .75rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    div:has(textarea),
+    textarea {
+        width: 100%;
+    }
+
+    svg {
+        color: #333;
+        margin: .75rem;
+        cursor: pointer;
+    }
+
+    .preview {
+        position: relative;
+        max-height: 50dvh;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        svg {
+            display: none;
+        }
+
+        &:hover {
+            &::after {
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                inset: 0;
+                background-color: #5252526e;
+                cursor: pointer;
+            }
+
+            svg {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                display: block;
+            }
+        }
+    }
+}

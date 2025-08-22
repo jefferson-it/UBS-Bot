@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #e7e7e7;
+  font-size: 16pt;
+}
+
+input,
+textarea,
+select {
+  padding: .5rem;
+}

@@ -1,0 +1,20 @@
+{
+  "name": "alert-ubs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "types": "index.d.ts",
+  "scripts": {},
+  "keywords": [],
+  "author": "Jefferson Silva de Souza",
+  "license": "JFS",
+  "packageManager": "pnpm@10.14.0",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0",
+    "tesseract.js": "^6.0.1",
+    "venom-bot": "^5.3.0"
+  }
+}
