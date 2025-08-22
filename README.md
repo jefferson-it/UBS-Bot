@@ -13,7 +13,7 @@ Combinando **Express + ReactJS + Venom-Bot**, criei um formulário simples que p
 Exemplo de mensagem enviada:
 
 ```
-O seu atendimento com a $nome_profissional foi remarcado para o dia 25/09/25.
+O seu atendimento com a $p_nome foi remarcado para o dia 25/09/25.
 ```
 
 Os parâmetros serão substituídos automaticamente para cada paciente.
