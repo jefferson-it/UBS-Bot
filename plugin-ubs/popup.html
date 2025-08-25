@@ -61,7 +61,22 @@
     <div id="msg" style="display: none;">
         <p id="total"></p>
         <textarea placeholder="Mensagem padrão" name="msg" cols="30" rows="10"></textarea>
-        <small></small>
+        <small>
+            Digite "$nome" para citar o nome do paciente, e digite "$tel" para citar o telefone do paciente, após o
+            processamento, "Olá $nome", seria trocado por "Olá Jefferson", por exemplo.
+            <br />
+            "$p_nome" para nome do profissional
+            <br />
+            "$p_cargo" para cargo do profissional(processado pelo servidor)
+            <br />
+            "$h" turno antigo
+            <br />
+            "$nd" a nova data
+            <br />
+            "$nt" o novo turno
+            <br />
+            "$data" data do agendamento em questão
+        </small>
         <br>
         <button id="back">voltar</button>
         <button id="preview">Pré-visualizar</button>
