@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import { create } from 'venom-bot';
 import cors from 'cors';
 import { formatPhoneForWhatsApp } from './utils.js';
-import Tesseract from 'tesseract.js';
 
 const __filename = fileURLToPath(import.meta.url || 'file://' + __filename);
 const __dirname = path.dirname(__filename)
@@ -28,7 +27,7 @@ create({
 })
 
 app.use(cors({
-    origin: process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : ''
+    origin: '*'
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -40,13 +39,6 @@ app.use((req, _, next) => {
     }
 
     next()
-})
-
-app.get("/funcionarios", (req, res) => {
-    const jsonResult = readFileSync('./profissional.json', 'utf8');
-    const funcionarios = JSON.parse(jsonResult);
-
-    res.json(funcionarios)
 })
 
 app.get('/wh-status', (req, res) => {
@@ -65,24 +57,23 @@ app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 })
 
-app.post('/send-message', async (req, res) => {
+app.post('/send-message/ubs2', async (req, res) => {
     if (!req.utils.whatsApp || !req.utils.whatsApp.isConnected) return res.json({
         message: 'Erro: whatsapp desconectado'
     })
 
-
-    const { profissional, msg, pacientes } = req.body;
+    const { profissional, msg, pacientes, data } = req.body;
     const errors = [];
     const success = [];
     const profissionalAlvo = profissionalArray.find(({ nome }) => nome === profissional);
 
     if (!profissionalAlvo) return res.json({
-        message: `Erro: O Provisional ${profissional} não foi encontrado`
+        message: `Erro: O Profissional ${profissional} não foi encontrado`
     })
 
-    const messageFinal = `Olá $nome, a UBS 2(Unidade Básica de Saúde 2 / Rua de Baixo) informa:\n$msg`;
+    const messageFinal = `Olá $nome, a UBS 2(Unidade Básica de Saúde 2 / Rua de Baixo) informa:\n$msg\n_Mensagem *automática*, não responda_`;
 
-    for (const { nome, tel } of pacientes) {
+    for (const { nome, tel, horario, novaData, novoHorário } of pacientes) {
         try {
             const existNumber = await req.utils.whatsApp.checkNumberStatus(formatPhoneForWhatsApp(tel));
 
@@ -93,7 +84,11 @@ app.post('/send-message', async (req, res) => {
                         .replace('$msg', msg)
                         .replace(/\$nome/g, nome)
                         .replace(/\$tel/g, tel)
+                        .replace(/\$data/g, data)
                         .replace(/\$p_nome/g, profissionalAlvo.nome)
+                        .replace(/\$h/g, horario)
+                        .replace(/\$nd/g, formatarDataBr(novaData))
+                        .replace(/\$nt/g, novoHorário)
                         .replace(/\$p_cargo/g, profissionalAlvo.cargo)
                 )
 
@@ -121,29 +116,17 @@ app.post('/send-message', async (req, res) => {
     })
 });
 
-app.post('/transcribe', async (req, res) => {
-    const { image } = req.body; // image em base64
+function formatarDataBr(dataIso) {
+    if (!dataIso) return "";
+    const d = new Date(dataIso);
 
-    if (!image) {
-        return res.status(400).json({ error: 'Nenhuma imagem fornecida.' });
-    }
+    return d.toLocaleDateString("pt-BR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+}
 
-    try {
-        const result = await Tesseract.recognize(
-            image,
-            'por',
-            {
-                logger: m => console.log(m)
-            }
-        );
 
-        const text = result.data.text;
-
-        res.json({ text: text.trim() });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Erro ao processar a imagem.' });
-    }
-});
-
-app.listen(5050);
+app.listen(5050)

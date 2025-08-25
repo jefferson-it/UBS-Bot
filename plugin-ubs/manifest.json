@@ -1,0 +1,24 @@
+{
+    "manifest_version": 3,
+    "name": "Plugin UBS",
+    "version": "1.0",
+    "description": "Plugin com popup",
+    "permissions": [
+        "storage",
+        "scripting",
+        "activeTab"
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*"
+            ],
+            "js": [
+                "index.js"
+            ]
+        }
+    ]
+}
