@@ -54,7 +54,7 @@ app.get('/wh-status', (req, res) => {
 })
 
 app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'))
+    res.send('app-ubs-teste')
 })
 
 app.post('/send-message/ubs2', async (req, res) => {
